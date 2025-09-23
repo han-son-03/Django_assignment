@@ -5,7 +5,7 @@ class Todo(models.Model):
     description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
-    is_completed = models.BooleanField(default=False)
+    is_complete = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
