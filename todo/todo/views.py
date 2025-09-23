@@ -11,9 +11,9 @@ def todo_list(request):
     return render(request, 'todo_list.html', {'data': result})
 
 
-def todo_info(request, todo_id):
+def todo_info(request, id):
     try:
-        todo = Todo.objects.get(id=todo_id)
+        todo = Todo.objects.get(id=id)
         info = {
             'title': todo.title,
             'description': todo.description,
