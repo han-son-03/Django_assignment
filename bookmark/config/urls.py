@@ -43,10 +43,12 @@ def book(request, num):
     return render(request, 'book.html', {'num': num})
 
 def language(request, lang):
-    return render(request, 'language.html', {'lang': lang})
+    return HttpResponse(f'<h1>{lang} 페이지 입니다.</h1>')
+    # return render(request, 'language.html', {'lang': lang})
 def python(request):
-    # return HttpResponse('python 페이지 입니다.')
-    return render(request, 'python.html')
+    return HttpResponse('python 페이지 입니다.')
+    # return render(request, 'python.html')
+
 
 def baseball_team(request):
     # team_ranks = [
@@ -63,8 +65,8 @@ def team_local(request, index):
     if index > len(baseball_lists) - 1:
         raise Http404
 
-    # baseball = baseball_lists[index]
-    context = {'baseball_lists': baseball_lists}
+    baseball = baseball_lists[index]
+    context = {'baseball': baseball}
     return render(request, 'baseball.html', context)
 
 def gugu(request, num):

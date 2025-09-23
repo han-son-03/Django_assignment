@@ -10,7 +10,7 @@
 <body>
     {% for baseball in baseball_lists %}
         {% if forloop.counter <= 3 %}
-        {{ forloop.counter }}위: <a href="/baseball/{{ forloop.counter0 }}">{{ baseball.team }}</a><br>
+            {{ forloop.counter }}위: <a href="/baseball/{{ forloop.counter0 }}">{{ baseball.team }}</a><br>
         {% endif %}
     {% endfor %}
 
