@@ -15,13 +15,75 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
+from django.shortcuts import render, redirect
 from django.urls import path
 
+baseball_lists = [
+    {'team': '한화 이글스', 'local' : '대전광역시'},
+    {'team': 'KIA 타이거즈', 'local' : '광주광역시'},
+    {'team': '삼성 라이온즈', 'local' : '대구광역시'},
+    {'team': '롯데 자이언츠', 'local' : '부산광역시'},
+    {'team': '두산 베어스', 'local' : '서울특별시'},
+]
 
 def index(request):
     return HttpResponse("<h1>Hello</h1>")
+
+def book_list(request):
+    # book_text = ''
+    #
+    # for i in range(0, 10):
+    #     book_text += f'book {i}<br>'
+    return render(request, 'book_list.html', {'range': range(0, 10)})
+
+def book(request, num):
+    # book_text = f'book {num}번 페이지 입니다.'
+
+    return render(request, 'book.html', {'num': num})
+
+def language(request, lang):
+    return render(request, 'language.html', {'lang': lang})
+def python(request):
+    # return HttpResponse('python 페이지 입니다.')
+    return render(request, 'python.html')
+
+def baseball_team(request):
+    # team_ranks = [
+    #     f'<a href="/baseball/{index}">{baseball['team']}</a><br>'
+    #     for index, baseball in enumerate(baseball_lists)
+    # ]
+    # response_text = '<br>'.join(team_ranks)
+    #
+    # return HttpResponse(response_text)
+    return render(request, 'baseballs.html', {'baseball_lists': baseball_lists})
+
+
+def team_local(request, index):
+    if index > len(baseball_lists) - 1:
+        raise Http404
+
+    # baseball = baseball_lists[index]
+    context = {'baseball_lists': baseball_lists}
+    return render(request, 'baseball.html', context)
+
+def gugu(request, num):
+    if num < 2 :
+        return redirect('/gugu/2/')
+    context = {
+        'num': num,
+        'results' : [num * i for i in range(1, 10)]
+    }
+    return render(request, 'gugu.html', context)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',index, name='index'),
+# path('book_list', book_list),
+    path('book_list/<int:num>/', book),
+    path('language/python', python),
+    path('language/<str:lang>/', language),
+    path('baseball/', baseball_team),
+    path('baseball/<int:index>', team_local),
+    path('gugu/<int:num>/', gugu),
 ]
