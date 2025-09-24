@@ -21,7 +21,7 @@ from todo.views import todo_list, todo_info
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('todo/', todo_list, name='todo_list'),
+    path('', todo_list, name='todo_list'),
     path('todo/<int:id>/', todo_info, name='todo_info'),
 
     #auth
