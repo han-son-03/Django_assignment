@@ -20,12 +20,12 @@ from todo.views import todo_list, todo_info
 from users import views as user_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', todo_list, name='todo_list'),
     path('todo/<int:id>/', todo_info, name='todo_info'),
+    path('admin/', admin.site.urls),
 
     #auth
     path('accounts/', include('django.contrib.auth.urls')),
-    # path('accounts/logout/', user_views.logout, name='logout'),
+    path('accounts/lonin/', user_views.login, name="login"),
     path('accounts/signup/', user_views.signup, name='signup'),
 ]

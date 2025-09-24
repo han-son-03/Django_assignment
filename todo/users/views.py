@@ -8,6 +8,7 @@ def signup(request):
     if form.is_valid():
         form.save()
         return redirect(settings.LOGIN_URL)
+
     context = {'form': form}
     return render(request, 'registration/signup.html', context)
 
