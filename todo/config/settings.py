@@ -43,7 +43,7 @@ own_apps = [
     'todo',
 ]
 THIRD_PARTY_APPS = [
-    # 'django_extensions'
+    'django_extensions'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + own_apps + THIRD_PARTY_APPS
