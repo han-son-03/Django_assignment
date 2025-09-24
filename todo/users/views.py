@@ -14,7 +14,7 @@ def signup(request):
 
 
 def login(request):
-    form = AuthenticationForm()
+    form = AuthenticationForm(request, data=request.POST or None)
     if form.is_valid():
         django_login(request, form.get_user())
         return redirect(settings.LOGIN_REDIRECT_URL)

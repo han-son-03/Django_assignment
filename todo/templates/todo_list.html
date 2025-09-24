@@ -47,9 +47,9 @@
         {% if request.user.is_authenticated %}
             <div style="text-align: right; font-size: 20px; display: flex; justify-content: space-between">
                 {{ request.user.username }}
-                <form action="{% url 'logout' method="POST" %}">
+                <form action="{% url 'logout' %}" method="POST" >
                     {% csrf_token %}
-                    <button>Logout</button>
+                    <button type=submit style="border: 0; font-size: 20px">Logout</button>
                 </form>
             </div>
         {% else %}
@@ -70,7 +70,7 @@
             {% else %}
                 <h1>회원가입 또는 로그인을 진행해 주세요</h1>
             {% endif %}
-            <h1>Todo List</h1>
+{#            <h1>Todo List</h1>#}
         </div>
 </body>
 </html>

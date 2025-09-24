@@ -20,7 +20,7 @@ from todo.views import todo_list, todo_info
 from users import views as user_views
 
 urlpatterns = [
-    path('', todo_list, name='todo_list'),
+    path('todo/', todo_list, name='todo_list'),
     path('todo/<int:id>/', todo_info, name='todo_info'),
     path('admin/', admin.site.urls),
 
