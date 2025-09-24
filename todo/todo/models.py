@@ -7,7 +7,7 @@ class Todo(models.Model):
     end_date = models.DateField()
     is_complete = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
