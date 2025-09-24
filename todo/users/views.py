@@ -7,7 +7,7 @@ def signup(request):
     form = UserCreationForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect(settings.LOFIN_URL)
+        return redirect(settings.LOGIN_URL)
     context = {'form': form}
     return render(request, 'registration/signup.html', context)
 
