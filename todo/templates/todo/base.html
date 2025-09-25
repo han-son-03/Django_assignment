@@ -8,25 +8,22 @@
     <nav>
         <div style="display: flex; justify-content: space-between">
             <a style="font-size: 20px" href={% url 'todo_list' %}>Home</a>
-        {% if request.user.is_authenticated %}
-            <form action="{% url 'logout' %}"method="post" style="display: inline">
-                {% csrf_token %}
-                <button>로그아웃</button>
-            </form>
-            {{ request.user.uesrname }}
-        {% else %}
-            <a href="{% url 'signup' %}">회원가입</a>
-            <a href="{% url 'login' %}">로그인</a>
-        {% endif %}
         </div>
+        {% if request.user.is_authenticated %}
+            <div style="text-align: right; font-size: 20px; display: flex; justify-content: space-between">
+                {{ request.user.uesrname }}
+                <form action="{% url 'logout' %}"method="post">
+                    {% csrf_token %}
+                    <button style="border: 0; font-size: 20px; cursor: pointer">Logout</button>
+                </form>
+            </div>
+        {% else %}
+            <div style="display: flex; justify-content: right; font-size: 20px;">
+                <a href="{% url 'signup' style="margin-right: 10px" %}">Signup</a>
+                <a href="{% url 'login' %}">login</a>
+            </div>
+        {% endif %}
     </nav>
-    <h1>블로그 목록</h1>
-    {% for blog in blogs %}
-        <p>
-            <a href="{% url 'blog_detail' blog.pk %}">
-                {{ blog.title }} <span>{{ blog.author.username }}</span>
-            </a>
-        </p>
-    {% endfor %}
+    {% block content %}{% endblock %}
 </body>
 </html>
