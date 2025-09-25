@@ -21,3 +21,7 @@ def login(request):
 
     context = {'form': form}
     return render(request, 'registration/login.html', context)
+
+#구현중
+# def logout(request):
+#     return render(request, 'registration/login.html')

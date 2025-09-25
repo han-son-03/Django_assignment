@@ -33,7 +33,7 @@ urlpatterns = [
     path('todo/<int:id>/delete/', todo_delete, name='todo_delete'),
 
     #auth
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/lonin/', user_views.login, name="login"),
-    path('accounts/signup/', user_views.signup, name='signup'),
+    path('todo/accounts/', include('django.contrib.auth.urls')),
+    path('todo/accounts/login/', user_views.login, name="login"),
+    path('todo/accounts/signup/', user_views.signup, name='signup'),
 ]
