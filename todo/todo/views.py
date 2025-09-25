@@ -13,7 +13,7 @@ def todo_list(request):
     todo_list = Todo.objects.filter(user=request.user).order_by('created_at')
     q = request.GET.get('q')
     if q:
-        todo_list = todo_list.filter(title__icontains=q) | Q(description__icontains=q)
+        todo_list = todo_list.filter(Q(title__icontains=q) | Q(description__icontains=q))
     paginator = Paginator(todo_list, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -53,7 +53,7 @@ def todo_update(request, id):
     form = TodoUpdateForm(request.POST or None, instance=todo)
     if form.is_valid():
         todo.save()
-        return redirect(reverse('todo_info'))
+        return redirect(reverse('todo_info', kwargs={'id': todo.pk}))
     context = {
         'form': form,
     }
