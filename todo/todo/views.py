@@ -5,7 +5,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from todo.forms import TodoForm
+from todo.forms import TodoForm, TodoUpdateForm
 from todo.models import Todo
 
 
@@ -45,3 +45,14 @@ def todo_create(request):
         'form': form
     }
     return render(request, 'todo/todo_create.html', context)
+
+def todo_update(request, id):
+    todo = get_object_or_404(Todo, user=request.user, id=id)
+    form = TodoUpdateForm(request.POST or None, instance=todo)
+    if form.is_valid():
+        todo.save()
+        return redirect(reverse('todo_info'))
+    context = {
+        'form': form,
+    }
+    return render(request, 'todo/todo_update.html', context)
