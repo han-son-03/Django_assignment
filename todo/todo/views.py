@@ -56,3 +56,9 @@ def todo_update(request, id):
         'form': form,
     }
     return render(request, 'todo/todo_update.html', context)
+
+@login_required()
+def todo_delete(request, id):
+    todo = get_object_or_404(Todo, id=id, user=request.user)
+    todo.delete()
+    return redirect(reverse('todo_list'))
