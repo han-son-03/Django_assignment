@@ -23,14 +23,15 @@ def todo_list(request):
 
     return render(request, 'todo_list.html', context)
 
-#추후 확인!
+
+# 추후 확인!
 @login_required()
 def todo_info(request, id):
     todo = get_object_or_404(Todo, id=id)
     context = {
         'todo': todo.__dict__
     }
-    return render(request, 'todo/todo_info.html', context)
+    return render(request, 'todo_info.html', context)
 
 
 @login_required
@@ -40,11 +41,12 @@ def todo_create(request):
         todo = form.save(commit=False)
         todo.user = request.user
         todo.save()
-        return redirect(reverse('todo_info', kwargs={'todo_id': todo.pk}))
+        return redirect(reverse('todo_info', kwargs={'id': todo.pk}))
     context = {
         'form': form
     }
     return render(request, 'todo/todo_create.html', context)
+
 
 def todo_update(request, id):
     todo = get_object_or_404(Todo, user=request.user, id=id)
@@ -56,6 +58,7 @@ def todo_update(request, id):
         'form': form,
     }
     return render(request, 'todo/todo_update.html', context)
+
 
 @login_required()
 def todo_delete(request, id):
