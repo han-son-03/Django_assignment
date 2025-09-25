@@ -33,12 +33,15 @@ def todo_info(request, id):
     return render(request, 'todo/todo_info.html', context)
 
 
-# @login_required
-# def todo_create(request):
-#     form = TodoForm(request.POST or None)
-#     if form.is_valid():
-#         todo = form.save(commit=False)
-#         todo.user = request.user
-#         users.save()
-#             return redirect(reverse('todo_info', kwargs={'todo_id': todo.pk}))
-
+@login_required
+def todo_create(request):
+    form = TodoForm(request.POST or None)
+    if form.is_valid():
+        todo = form.save(commit=False)
+        todo.user = request.user
+        todo.save()
+        return redirect(reverse('todo_info', kwargs={'todo_id': todo.pk}))
+    context = {
+        'form': form
+    }
+    return render(request, 'todo/todo_create.html', context)
