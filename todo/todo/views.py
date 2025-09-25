@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from todo.forms import TodoForm
@@ -23,21 +23,14 @@ def todo_list(request):
 
     return render(request, 'todo_list.html', context)
 
-
+#추후 확인!
+@login_required()
 def todo_info(request, id):
-    try:
-        todo = Todo.objects.get(id=id)
-        info = {
-            'title': todo.title,
-            'description': todo.description,
-            'start_date': todo.start_date,
-            'end_date': todo.end_date,
-            'is_complete': todo.is_complete,
-        }
-        return render(request, 'todo_info.html', {'data': info})
-    except Todo.DoesNotExist:
-
-        raise Http404("Todo does not exist")
+    todo = get_object_or_404(Todo, id=id)
+    context = {
+        'todo': todo.__dict__
+    }
+    return render(request, 'todo/todo_info.html', context)
 
 
 # @login_required
